@@ -16,15 +16,17 @@
             android:id="@+id/tvRecipeDetailName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Recipe"
+            android:text="Recipe Name"
             android:textSize="28sp"
             android:textStyle="bold"
             android:textColor="#212121" />
 
+        <!-- INGREDIENTS -->
+
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="24dp"
+            android:layout_marginTop="28dp"
             android:text="Ingredients"
             android:textSize="22sp"
             android:textStyle="bold"
@@ -34,15 +36,18 @@
             android:id="@+id/tvRecipeIngredients"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:text="List of Ingredients..."
+            android:layout_marginTop="12dp"
+            android:lineSpacingExtra="6dp"
+            android:text="Ingredients"
             android:textSize="17sp"
             android:textColor="#424242" />
+
+        <!-- PREPARATION -->
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="24dp"
+            android:layout_marginTop="28dp"
             android:text="Preparation"
             android:textSize="22sp"
             android:textStyle="bold"
@@ -52,8 +57,9 @@
             android:id="@+id/tvRecipeInstructions"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:text="Preparation instructions..."
+            android:layout_marginTop="12dp"
+            android:lineSpacingExtra="8dp"
+            android:text="Preparation instructions"
             android:textSize="17sp"
             android:textColor="#424242" />
 
@@ -61,7 +67,7 @@
             android:id="@+id/btnBackFromRecipe"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="30dp"
+            android:layout_marginTop="32dp"
             android:text="Back to Recipes" />
 
     </LinearLayout>
