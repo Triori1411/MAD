@@ -1,6 +1,69 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#F5F7FA">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="20dp">
+
+        <TextView
+            android:id="@+id/tvRecipeDetailName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Recipe"
+            android:textSize="28sp"
+            android:textStyle="bold"
+            android:textColor="#212121" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:text="Ingredients"
+            android:textSize="22sp"
+            android:textStyle="bold"
+            android:textColor="#212121" />
+
+        <TextView
+            android:id="@+id/tvRecipeIngredients"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="List of Ingredients..."
+            android:textSize="17sp"
+            android:textColor="#424242" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:text="Preparation"
+            android:textSize="22sp"
+            android:textStyle="bold"
+            android:textColor="#212121" />
+
+        <TextView
+            android:id="@+id/tvRecipeInstructions"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="Preparation instructions..."
+            android:textSize="17sp"
+            android:textColor="#424242" />
+
+        <Button
+            android:id="@+id/btnBackFromRecipe"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:text="Back to Recipes" />
+
+    </LinearLayout>
+
+</ScrollView>
