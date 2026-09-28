@@ -3,14 +3,21 @@ package com.example.mad_assignment;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
+
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.mad_assignment.database.DatabaseHelper;
+import com.example.mad_assignment.models.Recipe;
+import com.example.mad_assignment.models.RecipeIngredient;
+
+import java.util.ArrayList;
+
 public class RecipeDetailActivity extends AppCompatActivity {
 
     private TextView tvRecipeName;
-    private TextView tvIngredients;
-    private TextView tvInstructions;
+    private TextView tvRecipeIngredients;
+    private TextView tvRecipeInstructions;
 
     private Button btnBack;
 
@@ -22,46 +29,185 @@ public class RecipeDetailActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        setContentView(R.layout.activity_recipe_detail);
+        setContentView(
+                R.layout.activity_recipe_detail
+        );
 
-        databaseHelper = new DatabaseHelper(this);
-        tvRecipeName = findViewById(R.id.tvRecipeDetailName);
-        tvIngredients = findViewById(R.id.tvRecipeIngredients);
-        tvInstructions = findViewById(R.id.tvRecipeInstructions);
-        btnBack = findViewById(R.id.btnBackFromRecipe);
-        recipeId = getIntent().getIntExtra("recipe_id", -1);
+        // -------------------------------------------------
+        // CONNECT XML COMPONENTS
+        // -------------------------------------------------
+
+        tvRecipeName =
+                findViewById(
+                        R.id.tvRecipeDetailName
+                );
+
+        tvRecipeIngredients =
+                findViewById(
+                        R.id.tvRecipeIngredients
+                );
+
+        tvRecipeInstructions =
+                findViewById(
+                        R.id.tvRecipeInstructions
+                );
+
+        btnBack =
+                findViewById(
+                        R.id.btnBackFromRecipe
+                );
+
+        // -------------------------------------------------
+        // DATABASE
+        // -------------------------------------------------
+
+        databaseHelper =
+                new DatabaseHelper(this);
+
+        // -------------------------------------------------
+        // GET RECIPE ID FROM INTENT
+        // -------------------------------------------------
+
+        recipeId =
+                getIntent().getIntExtra(
+                        "recipe_id",
+                        -1
+                );
+
+        // -------------------------------------------------
+        // LOAD RECIPE
+        // -------------------------------------------------
 
         loadRecipe();
+
+        // -------------------------------------------------
+        // BACK BUTTON
+        // -------------------------------------------------
+
         btnBack.setOnClickListener(v -> finish());
     }
 
-    private void loadRecipe() {
-        if (recipeId == -1) {
-            tvRecipeName.setText("Recipe not found");
+    // =====================================================
+    // LOAD RECIPE FROM SQLITE
+    // =====================================================
 
-            tvIngredients.setText("");
-            tvInstructions.setText("");
+    private void loadRecipe() {
+
+        if (recipeId == -1) {
+
+            Toast.makeText(
+                    this,
+                    "Recipe could not be found",
+                    Toast.LENGTH_SHORT
+            ).show();
+
+            finish();
+
             return;
         }
 
-        tvRecipeName.setText(getIntent().getStringExtra("recipe_name")
+        // Get recipe from SQLite.
+
+        Recipe recipe =
+                databaseHelper.getRecipeById(
+                        recipeId
+                );
+
+        if (recipe == null) {
+
+            Toast.makeText(
+                    this,
+                    "Recipe could not be found",
+                    Toast.LENGTH_SHORT
+            ).show();
+
+            finish();
+
+            return;
+        }
+
+        // -------------------------------------------------
+        // DISPLAY RECIPE NAME
+        // -------------------------------------------------
+
+        tvRecipeName.setText(
+                recipe.getName()
         );
 
+        // -------------------------------------------------
+        // DISPLAY INSTRUCTIONS
+        // -------------------------------------------------
 
-        String ingredients = databaseHelper.getRecipeIngredientsText(recipeId);
+        tvRecipeInstructions.setText(
+                recipe.getInstructions()
+        );
 
-        if (ingredients == null || ingredients.trim().isEmpty()) {
-            ingredients = "No ingredients available.";
+        // -------------------------------------------------
+        // GET RECIPE INGREDIENTS
+        // -------------------------------------------------
+
+        ArrayList<RecipeIngredient> ingredients =
+                databaseHelper.getRecipeIngredients(
+                        recipeId
+                );
+
+        StringBuilder ingredientText =
+                new StringBuilder();
+
+        if (ingredients.isEmpty()) {
+
+            ingredientText.append(
+                    "No ingredients available."
+            );
+
+        } else {
+
+            for (RecipeIngredient ingredient :
+                    ingredients) {
+
+                ingredientText.append("• ");
+
+                ingredientText.append(
+                        ingredient.getName()
+                );
+
+                ingredientText.append(" - ");
+
+                ingredientText.append(
+                        formatQuantity(
+                                ingredient.getQuantity()
+                        )
+                );
+
+                ingredientText.append(" ");
+
+                ingredientText.append(
+                        ingredient.getUnit()
+                );
+
+                ingredientText.append("\n");
+            }
         }
 
-        tvIngredients.setText(ingredients);
+        tvRecipeIngredients.setText(
+                ingredientText.toString()
+        );
+    }
 
-        String instructions = getIntent().getStringExtra("recipe_instructions");
+    // =====================================================
+    // FORMAT QUANTITY
+    // =====================================================
 
-        if (instructions == null) {
-            instructions = "";
+    private String formatQuantity(
+            double quantity) {
+
+        if (quantity == (long) quantity) {
+
+            return String.valueOf(
+                    (long) quantity
+            );
         }
 
-        tvInstructions.setText(instructions);
+        return String.valueOf(quantity);
     }
 }
