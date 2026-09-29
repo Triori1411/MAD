@@ -19,7 +19,6 @@ import java.util.Set;
 
 public class DatabaseHelper extends SQLiteOpenHelper {
 
-
     // DATABASE INFORMATION
     private static final String DATABASE_NAME = "smart_pantry.db";
     private static final int DATABASE_VERSION = 1;
