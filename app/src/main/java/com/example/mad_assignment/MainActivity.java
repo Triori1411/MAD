@@ -1,8 +1,11 @@
 package com.example.mad_assignment;
 
+import com.example.mad_assignment.utils.SystemBarHelper;
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
+import android.view.View;
 import androidx.appcompat.app.AppCompatActivity;
 
 public class MainActivity extends AppCompatActivity {
@@ -16,6 +19,13 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_main);
+
+        View rootView = findViewById(android.R.id.content);
+
+        SystemBarHelper.setupSystemBars(
+                getWindow(),
+                rootView
+        );
 
         btnOpenPantry = findViewById(R.id.btnOpenPantry);
         btnOpenRecipes = findViewById(R.id.btnOpenRecipes);
