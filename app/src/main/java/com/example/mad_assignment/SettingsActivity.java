@@ -2,10 +2,13 @@ package com.example.mad_assignment;
 
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
 import android.widget.Switch;
 import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.example.mad_assignment.utils.SystemBarHelper;
 
 public class SettingsActivity extends AppCompatActivity {
 
@@ -25,6 +28,13 @@ public class SettingsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_settings);
+
+        View rootView = findViewById(android.R.id.content);
+
+        SystemBarHelper.setupSystemBars(
+                getWindow(),
+                rootView
+        );
 
         switchExpiryAlerts = findViewById(R.id.switchExpiryAlerts);
         btnSaveSettings = findViewById(R.id.btnSaveSettings);
