@@ -2,6 +2,7 @@ package com.example.mad_assignment;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 import androidx.appcompat.app.AlertDialog;
@@ -12,6 +13,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.mad_assignment.adapters.PantryAdapter;
 import com.example.mad_assignment.database.DatabaseHelper;
 import com.example.mad_assignment.models.PantryItem;
+import com.example.mad_assignment.utils.SystemBarHelper;
+
 
 import java.util.ArrayList;
 public class PantryListActivity extends AppCompatActivity {
@@ -31,6 +34,13 @@ public class PantryListActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pantry_list);
+
+        View rootView = findViewById(android.R.id.content);
+
+        SystemBarHelper.setupSystemBars(
+                getWindow(),
+                rootView
+        );
 
         databaseHelper = new DatabaseHelper(this);
         recyclerView = findViewById(R.id.recyclerViewPantry);
