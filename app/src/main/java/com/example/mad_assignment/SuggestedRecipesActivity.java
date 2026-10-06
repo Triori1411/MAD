@@ -2,6 +2,7 @@ package com.example.mad_assignment;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
@@ -11,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.mad_assignment.adapters.RecipeAdapter;
 import com.example.mad_assignment.database.DatabaseHelper;
 import com.example.mad_assignment.models.Recipe;
+import com.example.mad_assignment.utils.SystemBarHelper;
 
 import java.util.ArrayList;
 public class SuggestedRecipesActivity extends AppCompatActivity {
@@ -32,6 +34,13 @@ public class SuggestedRecipesActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_suggested_recipes);
+
+        View rootView = findViewById(android.R.id.content);
+
+        SystemBarHelper.setupSystemBars(
+                getWindow(),
+                rootView
+        );
 
         databaseHelper = new DatabaseHelper(this);
         recyclerView = findViewById(R.id.recyclerViewRecipes);
