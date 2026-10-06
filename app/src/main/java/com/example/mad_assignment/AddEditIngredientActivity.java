@@ -1,12 +1,15 @@
 package com.example.mad_assignment;
 
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.mad_assignment.database.DatabaseHelper;
+import com.example.mad_assignment.utils.SystemBarHelper;
+
 public class AddEditIngredientActivity extends AppCompatActivity {
 
     private EditText etName;
@@ -25,8 +28,13 @@ public class AddEditIngredientActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        setContentView(
-                R.layout.activity_add_edit_ingredient
+        setContentView(R.layout.activity_add_edit_ingredient);
+
+        View rootView = findViewById(android.R.id.content);
+
+        SystemBarHelper.setupSystemBars(
+                getWindow(),
+                rootView
         );
 
         databaseHelper = new DatabaseHelper(this);
