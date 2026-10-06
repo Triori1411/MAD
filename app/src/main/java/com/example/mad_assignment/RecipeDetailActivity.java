@@ -1,6 +1,7 @@
 package com.example.mad_assignment;
 
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -10,6 +11,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.example.mad_assignment.database.DatabaseHelper;
 import com.example.mad_assignment.models.Recipe;
 import com.example.mad_assignment.models.RecipeIngredient;
+import com.example.mad_assignment.utils.SystemBarHelper;
 
 import java.util.ArrayList;
 
@@ -29,14 +31,16 @@ public class RecipeDetailActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        setContentView(
-                R.layout.activity_recipe_detail
+        setContentView(R.layout.activity_recipe_detail);
+
+        View rootView = findViewById(android.R.id.content);
+
+        SystemBarHelper.setupSystemBars(
+                getWindow(),
+                rootView
         );
 
-        // -------------------------------------------------
         // CONNECT XML COMPONENTS
-        // -------------------------------------------------
-
         tvRecipeName =
                 findViewById(
                         R.id.tvRecipeDetailName
